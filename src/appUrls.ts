@@ -1,8 +1,7 @@
-export const signInUrl = "https://app.intagl.io/sign-in";
-export const signInAsMenteeUrl = "https://app.intagl.io/sign-in?userType=mentee";
-export const signInAsMentorUrl = "https://app.intagl.io/sign-in?userType=mentor";
-export const signUpUrl = "https://app.intagl.io/sign-up";
-export const signUpAsMentorUrl = "https://app.intagl.io/sign-up?userType=mentor";
-export const signUpAsMenteeUrl = "https://app.intagl.io/sign-up?userType=mentee";
-export const instagramUrl =
-  "https://www.instagram.com/intagliomentoring?igsh=MTRodDlmdGJyaDVyYQ%3D%3D&utm_source=qr";
+export const signInUrl = "https://app.thrip.app/sign-in";
+export const signInAsMenteeUrl = "https://app.thrip.app/sign-in?userType=rider";
+export const signInAsMentorUrl = "https://app.thrip.app/sign-in?userType=chauffeur";
+export const signUpUrl = "https://app.thrip.app/sign-up";
+export const signUpAsMentorUrl = "https://app.thrip.app/sign-up?userType=chauffeur";
+export const signUpAsMenteeUrl = "https://app.thrip.app/sign-up?userType=rider";
+export const instagramUrl = "https://www.instagram.com/thrip.app";

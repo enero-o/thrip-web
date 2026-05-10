@@ -18,7 +18,19 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+body {
   font-family: "Helvetica";
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Playfair Display", "Times New Roman", serif;
 }
 
 #root {
@@ -39,7 +51,7 @@
 .active-item {
   background-color: #2473F7;
   border-radius: 50%;
-  color: #ffffff;
+  color: #F8FAFC;
 }
 
 .page-item {
