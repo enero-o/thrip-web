@@ -9,6 +9,8 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import TermsOfService from "./pages/TermsOfService";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import CopyrightInfo from "./pages/CopyrightInfo";
+import Support from "./pages/Support";
+import DeleteAccount from "./pages/DeleteAccount";
 
 const paths = [
   {
@@ -30,6 +32,14 @@ const paths = [
   {
     path: routes.copyright,
     element: <CopyrightInfo />,
+  },
+  {
+    path: routes.support,
+    element: <Support />,
+  },
+  {
+    path: routes.deleteAccount,
+    element: <DeleteAccount />,
   },
 ];
 

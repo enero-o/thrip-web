@@ -11,6 +11,7 @@ const rightNavigationData = [
   { text: "Terms of Service", link: routes.termsOfService },
   { text: "Privacy Policy", link: routes.privacyPolicy },
   { text: "Copyright", link: routes.copyright },
+  { text: "Support", link: routes.support },
 ];
 
 const Footer = () => {
