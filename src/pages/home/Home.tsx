@@ -1,3 +1,5 @@
+import { useEffect, useMemo, useState } from "react";
+
 const highlights = [
   {
     title: "Executive Pickup Experience",
@@ -13,13 +15,57 @@ const highlights = [
   },
 ];
 
-const fleet = [
-  { name: "Mercedes-Benz S-Class", type: "Flagship Sedan", rate: "from N 120,000" },
-  { name: "Range Rover Autobiography", type: "Luxury SUV", rate: "from N 160,000" },
-  { name: "Toyota Land Cruiser VXR", type: "Executive SUV", rate: "from N 135,000" },
-];
+const API = "/api/v1";
+
+interface Vehicle {
+  id: string;
+  class: string;
+  name: string;
+  seats: number;
+  amenities: string[];
+  basePriceNgn: number;
+}
+
+const classLabel: Record<string, string> = {
+  PREMIUM: "Premium",
+  EXECUTIVE: "Executive",
+  ULTRA_LUXE: "Ultra Luxe",
+  MARINE: "Marine",
+  AVIATION: "Aviation",
+  HELICOPTER: "Helicopter",
+};
 
 const Home = () => {
+  const [vehicles, setVehicles] = useState<Vehicle[]>([]);
+
+  useEffect(() => {
+    let mounted = true;
+    fetch(`${API}/vehicles`)
+      .then(async (response) => {
+        if (!response.ok) return;
+        const data: Vehicle[] = await response.json();
+        if (mounted) setVehicles(data);
+      })
+      .catch(() => {
+        if (mounted) setVehicles([]);
+      });
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  const fleet = useMemo(() => {
+    return [...vehicles]
+      .sort((left, right) => right.basePriceNgn - left.basePriceNgn)
+      .slice(0, 3)
+      .map((vehicle) => ({
+        id: vehicle.id,
+        name: vehicle.name,
+        type: classLabel[vehicle.class] ?? vehicle.class,
+        rate: `from N ${new Intl.NumberFormat("en-NG").format(vehicle.basePriceNgn)}`,
+      }));
+  }, [vehicles]);
+
   return (
     <div className="w-full bg-concierge-black">
       <div className="bg-[radial-gradient(circle_at_12%_18%,rgba(219,170,90,0.22),transparent_34%),radial-gradient(circle_at_84%_22%,rgba(99,113,141,0.22),transparent_32%),#0C0E12] py-10 md:py-16">
@@ -67,14 +113,18 @@ const Home = () => {
             <img src="/luxe-grain.svg" alt="" aria-hidden="true" className="pointer-events-none absolute inset-0 h-full w-full opacity-15" />
             <p className="mb-2 font-semibold text-concierge-gold">Fleet Highlights</p>
             <div className="grid gap-4 md:grid-cols-3">
-              {fleet.map((item) => (
-                <article key={item.name} className="rounded-xl border border-white/10 p-4">
-                  <img src="/luxe-stars.svg" alt="" aria-hidden="true" className="mb-2 w-14 opacity-80" />
-                  <h3 className="mb-1 text-base font-semibold text-concierge-ivory">{item.name}</h3>
-                  <p className="mb-2 text-concierge-slate">{item.type}</p>
-                  <p className="font-semibold text-concierge-gold">{item.rate}</p>
-                </article>
-              ))}
+              {fleet.length === 0 ? (
+                <p className="text-sm text-concierge-slate">Fleet pricing updates are loading...</p>
+              ) : (
+                fleet.map((item) => (
+                  <article key={item.id} className="rounded-xl border border-white/10 p-4">
+                    <img src="/luxe-stars.svg" alt="" aria-hidden="true" className="mb-2 w-14 opacity-80" />
+                    <h3 className="mb-1 text-base font-semibold text-concierge-ivory">{item.name}</h3>
+                    <p className="mb-2 text-concierge-slate">{item.type}</p>
+                    <p className="font-semibold text-concierge-gold">{item.rate}</p>
+                  </article>
+                ))
+              )}
             </div>
           </section>
 
