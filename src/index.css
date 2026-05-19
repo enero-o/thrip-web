@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .input-base {
+    @apply w-full rounded-md border border-white/20 bg-white/5 px-3 py-2 text-sm text-concierge-ivory outline-none placeholder:text-concierge-slate focus:border-concierge-gold/60;
+  }
+}
+
 :root {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   line-height: 1.5;
